@@ -6,6 +6,8 @@
 package com.mtross.BitMEXLeaderboard.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Map;
 import lombok.Data;
 
 /**
@@ -15,7 +17,8 @@ import lombok.Data;
 @Data
 public class User {
 
-    private BigDecimal profit;
+    private Map<LocalDate, Integer> rank;
+    private Map<LocalDate, BigDecimal> profit;
     private boolean realName;
     private String userName;
 
