@@ -6,6 +6,7 @@
 package com.mtross.BitMEXLeaderboard.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -16,6 +17,7 @@ import lombok.Data;
 public class Leaderboard {
 
     private LocalDate date;
-    private User[] users;
+    private List<User> users;
+    private String url;
 
 }
