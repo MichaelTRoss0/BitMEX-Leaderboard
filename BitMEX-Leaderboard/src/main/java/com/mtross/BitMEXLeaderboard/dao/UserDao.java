@@ -5,6 +5,7 @@
  */
 package com.mtross.BitMEXLeaderboard.dao;
 
+import com.mtross.BitMEXLeaderboard.daoexceptions.PersistenceException;
 import com.mtross.BitMEXLeaderboard.entity.User;
 import java.util.List;
 
@@ -13,6 +14,12 @@ import java.util.List;
  * @author mike
  */
 public interface UserDao {
+
+    public void loadFromFiles()
+            throws PersistenceException;
+
+    public void saveToAllFiles()
+            throws PersistenceException;
 
     public User addUser(User user);
 

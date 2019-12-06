@@ -9,6 +9,6 @@ package com.mtross.BitMEXLeaderboard.controller;
  *
  * @author mike
  */
-public class LeaderboardController {
+public class ChangeInProfitController {
     
 }
