@@ -17,8 +17,8 @@ import lombok.Data;
 @Data
 public class User {
 
-    private Map<LocalDate, Integer> rank;
-    private Map<LocalDate, BigDecimal> profit;
+    private Map<LocalDate, Integer> rankHistory;
+    private Map<LocalDate, BigDecimal> profitHistory;
     private boolean realName;
     private String userName;
 
