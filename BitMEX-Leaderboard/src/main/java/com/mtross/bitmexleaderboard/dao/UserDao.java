@@ -5,7 +5,7 @@
  */
 package com.mtross.bitmexleaderboard.dao;
 
-import com.mtross.bitmexleaderboard.PersistenceException;
+import com.mtross.bitmexleaderboard.daoexceptions.PersistenceException;
 import com.mtross.bitmexleaderboard.entity.User;
 import java.util.List;
 
