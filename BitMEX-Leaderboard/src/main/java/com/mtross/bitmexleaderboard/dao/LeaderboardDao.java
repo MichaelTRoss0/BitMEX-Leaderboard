@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mtross.BitMEXLeaderboard.dao;
+package com.mtross.bitmexleaderboard.dao;
 
-import com.mtross.BitMEXLeaderboard.daoexceptions.PersistenceException;
-import com.mtross.BitMEXLeaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.PersistenceException;
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,6 +21,8 @@ public interface LeaderboardDao {
 
     public void saveToAllFiles()
             throws PersistenceException;
+
+    public Leaderboard addLeaderboard();
 
     public Leaderboard addLeaderboard(Leaderboard leaderboard);
 

@@ -3,17 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mtross.BitMEXLeaderboard.dao;
+package com.mtross.bitmexleaderboard.dao;
 
-import com.mtross.BitMEXLeaderboard.daoexceptions.PersistenceException;
-import com.mtross.BitMEXLeaderboard.entity.User;
+import com.mtross.bitmexleaderboard.PersistenceException;
+import com.mtross.bitmexleaderboard.entity.User;
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author mike
  */
+@Repository
 public class UserDaoFile implements UserDao {
+
+    public static String USER_FILE;
+    public static final String DELIMITER = ",";
+
+    public UserDaoFile() {
+        USER_FILE = "Data/User_name.txt";
+    }
+
+    public UserDaoFile(String filename) {
+        USER_FILE = filename;
+    }
+
+    private Map<User, File> userFiles = new HashMap<>();
 
     @Override
     public void loadFromFiles() throws PersistenceException {
