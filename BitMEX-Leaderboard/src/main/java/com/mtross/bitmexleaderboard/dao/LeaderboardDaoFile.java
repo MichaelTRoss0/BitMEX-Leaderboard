@@ -8,7 +8,7 @@ package com.mtross.bitmexleaderboard.dao;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.mtross.bitmexleaderboard.PersistenceException;
+import com.mtross.bitmexleaderboard.daoexceptions.PersistenceException;
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.entity.User;
 import java.io.File;
