@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mtross.BitMEXLeaderboard.controller;
+package com.mtross.bitmexleaderboard.controller;
 
-import com.mtross.BitMEXLeaderboard.dao.LeaderboardDao;
-import com.mtross.BitMEXLeaderboard.dao.UserDao;
+import com.mtross.bitmexleaderboard.dao.LeaderboardDao;
+import com.mtross.bitmexleaderboard.dao.UserDao;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

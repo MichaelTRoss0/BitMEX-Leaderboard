@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mtross.BitMEXLeaderboard.entity;
+package com.mtross.bitmexleaderboard.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

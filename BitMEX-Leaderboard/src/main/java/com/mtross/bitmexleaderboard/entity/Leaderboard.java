@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mtross.BitMEXLeaderboard.entity;
+package com.mtross.bitmexleaderboard.entity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +18,5 @@ public class Leaderboard {
 
     private LocalDate date;
     private List<User> users;
-    private String url;
 
 }

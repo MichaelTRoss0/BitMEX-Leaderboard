@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mtross.BitMEXLeaderboard.dao;
+package com.mtross.bitmexleaderboard.dao;
 
-import com.mtross.BitMEXLeaderboard.daoexceptions.PersistenceException;
-import com.mtross.BitMEXLeaderboard.entity.User;
+import com.mtross.bitmexleaderboard.PersistenceException;
+import com.mtross.bitmexleaderboard.entity.User;
 import java.util.List;
 
 /**
