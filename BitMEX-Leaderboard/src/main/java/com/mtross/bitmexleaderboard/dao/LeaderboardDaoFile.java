@@ -291,11 +291,12 @@ public class LeaderboardDaoFile implements LeaderboardDao {
     }
 
     private String marshallUser(User user) {
-        String userAsText = "";
-        List<LocalDate> dates = 
-        for 
-        
-        return userAsText;
+//        String userAsText = "";
+//        List<LocalDate> dates = 
+//        for 
+//        
+//        return userAsText;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private LocalDate getDateFromFilename(String filename) {
