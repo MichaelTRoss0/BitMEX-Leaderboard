@@ -7,8 +7,10 @@ package com.mtross.bitmexleaderboard.dao;
 
 import com.mtross.bitmexleaderboard.daoexceptions.PersistenceException;
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.entity.User;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -22,7 +24,7 @@ public interface LeaderboardDao {
     public void saveToAllFiles()
             throws PersistenceException;
 
-    public Leaderboard addLeaderboard();
+    public void makeUserMap(Map<String, User> mapOfUsers);
 
     public Leaderboard addLeaderboard(Leaderboard leaderboard);
 
@@ -30,8 +32,10 @@ public interface LeaderboardDao {
 
     public List<Leaderboard> getAllLeaderboards();
 
-    public void updateLeaderboard(Leaderboard leaderboard);
+    public void updateLeaderboard(LocalDate date, Leaderboard leaderboard);
 
     public void deleteLeaderboard(LocalDate date);
+
+    public Leaderboard makeTodaysLeaderboard();
 
 }

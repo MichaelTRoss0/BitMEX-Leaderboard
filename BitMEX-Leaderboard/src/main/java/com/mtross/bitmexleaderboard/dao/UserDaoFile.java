@@ -32,6 +32,7 @@ public class UserDaoFile implements UserDao {
     }
 
     private Map<User, File> userFiles = new HashMap<>();
+    private Map<String, User> userMap = new HashMap<>();
 
     @Override
     public void loadFromFiles() throws PersistenceException {
@@ -70,6 +71,11 @@ public class UserDaoFile implements UserDao {
 
     @Override
     public void deleteUser(User user) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public HashMap<String, User> getUserMap() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
