@@ -33,9 +33,6 @@ public class HomeController {
 
     @GetMapping("/home")
     public String checkLeaderboard(Model model) {
-        LocalDateTime now = LocalDateTime.now();
-        
-        // TODO - fill out this program after finishing the DAOs and service layers
 
         return "home";
     }
