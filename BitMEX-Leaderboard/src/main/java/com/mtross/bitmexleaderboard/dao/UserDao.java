@@ -7,6 +7,7 @@ package com.mtross.bitmexleaderboard.dao;
 
 import com.mtross.bitmexleaderboard.daoexceptions.PersistenceException;
 import com.mtross.bitmexleaderboard.entity.User;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,5 +33,7 @@ public interface UserDao {
     public void updateUser(User user);
 
     public void deleteUser(User user);
+
+    public HashMap<String, User> getUserMap();
 
 }
