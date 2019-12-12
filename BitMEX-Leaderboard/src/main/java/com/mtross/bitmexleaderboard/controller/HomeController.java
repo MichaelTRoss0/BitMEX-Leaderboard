@@ -7,7 +7,6 @@ package com.mtross.bitmexleaderboard.controller;
 
 import com.mtross.bitmexleaderboard.dao.LeaderboardDao;
 import com.mtross.bitmexleaderboard.dao.UserDao;
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
