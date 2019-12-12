@@ -5,8 +5,8 @@
  */
 package com.mtross.bitmexleaderboard.controller;
 
-import com.mtross.bitmexleaderboard.dao.LeaderboardDao;
-import com.mtross.bitmexleaderboard.dao.UserDao;
+import com.mtross.bitmexleaderboard.dao.LeaderboardRepository;
+import com.mtross.bitmexleaderboard.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,18 +20,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    UserDao userDao;
+    UserRepository user;
 
     @Autowired
-    LeaderboardDao leaderboardDao;
+    LeaderboardRepository leaderboard;
 
     @GetMapping("")
     public String getIndex(Model model) {
-        return checkLeaderboard(model);
+        return displayChangesInProfit(model);
     }
 
     @GetMapping("/home")
-    public String checkLeaderboard(Model model) {
+    public String displayChangesInProfit(Model model) {
 
         return "home";
     }
