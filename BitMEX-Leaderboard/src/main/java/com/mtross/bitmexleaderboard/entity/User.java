@@ -7,8 +7,8 @@ package com.mtross.bitmexleaderboard.entity;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -20,7 +20,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyTemporal;
 import javax.persistence.Table;
+import static javax.persistence.TemporalType.DATE;
 import lombok.Data;
 
 /**
@@ -48,6 +50,7 @@ public class User {
             joinColumns = {
                 @JoinColumn(name = "userId")})
     @MapKeyColumn(name = "`date`")
+    @MapKeyTemporal(value = DATE)
     @Column(name = "`rank`")
     private Map<LocalDate, Integer> rankHistory = new HashMap<>();
 
@@ -56,10 +59,11 @@ public class User {
             joinColumns = {
                 @JoinColumn(name = "userId")})
     @MapKeyColumn(name = "`date`")
+    @MapKeyTemporal(value = DATE)
     @Column(name = "profit")
     private Map<LocalDate, String> profitHistory = new HashMap<>();
-    
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    private List<Leaderboard> leaderboards;
+    private Set<Leaderboard> leaderboards;
 
 }
