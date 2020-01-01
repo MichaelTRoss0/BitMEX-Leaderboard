@@ -6,7 +6,7 @@
 package com.mtross.bitmexleaderboard.controller;
 
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.service.LeaderboardService;
+import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 import java.time.Clock;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    LeaderboardService service;
+    private LeaderboardManagerImpl service;
     
-    private final Clock utcClock = Clock.systemUTC();
-    private final ZoneOffset utcOffset = ZoneOffset.UTC;
-    private final ZoneId utc = ZoneId.of("Z");
+//    private final Clock utcClock = Clock.systemUTC();
+//    private final ZoneOffset utcOffset = ZoneOffset.UTC;
+//    private final ZoneId utc = ZoneId.of("Z");
 
     @GetMapping("")
     public String getIndex(Model model) {
