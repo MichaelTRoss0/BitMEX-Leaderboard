@@ -5,6 +5,7 @@
  */
 package com.mtross.bitmexleaderboard.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 import javax.persistence.Column;
@@ -25,11 +26,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Leaderboard")
-public class Leaderboard {
+public class Leaderboard implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
+    @Column(name = "leaderboard_id")
     private int leaderboardId;
 
     @Column(name = "`date`", unique = true, nullable = false)
@@ -38,9 +39,34 @@ public class Leaderboard {
     @ManyToMany
     @JoinTable(name = "Leaderboard_User",
             joinColumns = {
-                @JoinColumn(name = "leaderboardId")},
+                @JoinColumn(name = "leaderboard_id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "userId")})
+                @JoinColumn(name = "user_id")})
     private Set<User> users;
+
+    public User getUserByRank(Integer rank) {
+
+        for (User user : this.users) {
+            int userRank = user.getRankHistory().get(this.date);
+            if (userRank == rank) {
+                return user;
+            }
+        }
+
+        return null;
+
+    }
+
+    public User getUserByUserame(String username) {
+
+        for (User user : this.users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+
+        return null;
+
+    }
 
 }

@@ -5,6 +5,7 @@
  */
 package com.mtross.bitmexleaderboard.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +21,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.MapKeyTemporal;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
-import static javax.persistence.TemporalType.DATE;
+import javax.transaction.Transactional;
 import lombok.Data;
 
 /**
@@ -32,38 +34,58 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "`User`")
-public class User {
+@SecondaryTable(name = "User_History",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@Transactional
+public class User implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
+    @Column(name = "user_id")
     private int userId;
 
-    @Column(nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "real_name", nullable = false)
     private boolean realName;
 
     @ElementCollection
-    @CollectionTable(name = "UserHistory",
+    @CollectionTable(name = "User_History",
             joinColumns = {
-                @JoinColumn(name = "userId")})
+                @JoinColumn(name = "user_id")})
     @MapKeyColumn(name = "`date`")
-    @MapKeyTemporal(value = DATE)
     @Column(name = "`rank`")
     private Map<LocalDate, Integer> rankHistory = new HashMap<>();
 
     @ElementCollection
-    @CollectionTable(name = "UserHistory",
+    @CollectionTable(name = "User_History",
             joinColumns = {
-                @JoinColumn(name = "userId")})
+                @JoinColumn(name = "user_id")})
     @MapKeyColumn(name = "`date`")
-    @MapKeyTemporal(value = DATE)
     @Column(name = "profit")
     private Map<LocalDate, String> profitHistory = new HashMap<>();
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private Set<Leaderboard> leaderboards;
+
+    public boolean appearsOnDay(LocalDate date) {
+
+        Set<LocalDate> dateSet = this.rankHistory.keySet();
+        return dateSet.contains(date);
+
+    }
+
+    public Integer getRankFromDate(LocalDate date) {
+
+        return this.rankHistory.get(date);
+
+    }
+
+    public String getProfitFromDate(LocalDate date) {
+
+        return this.profitHistory.get(date);
+
+    }
 
 }
