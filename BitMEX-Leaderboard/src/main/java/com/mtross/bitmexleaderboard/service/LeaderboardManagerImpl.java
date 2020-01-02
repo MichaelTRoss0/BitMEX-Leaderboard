@@ -40,6 +40,9 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     @Autowired
     private LeaderboardConnectorImpl leaderboardConnector;
 
+    final private DecimalFormat FORMATTER = new DecimalFormat("#,###.0000;(-#,###.0000)");
+    final private String BTC = "\u20BF";
+
     public LeaderboardManagerImpl() {
     }
 
@@ -243,27 +246,28 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     private String formatProfit(String profit) {
-        String profitBTC = "";
-        
-        DecimalFormat formatter = new DecimalFormat("#,###.####;(-#,###.####)");
-        
+        String profitBTC;
+
         BigDecimal bdProfit = new BigDecimal(profit);
         bdProfit = bdProfit.divide(new BigDecimal("100000000")); // That's 10^8
-        String realProfit = bdProfit.toString();
-        
-        
+        String formattedProfit = FORMATTER.format(bdProfit);
+
+        profitBTC = BTC + " " + formattedProfit;
 
         return profitBTC;
     }
 
     private String calculateChangeInProfit(String oldProfit, String newProfit) {
-        String changeInProfit = "";
-        
-        
-        
-        
-        
-        
+        String changeInProfit;
+
+        BigDecimal oldBdProfit = new BigDecimal(oldProfit);
+        BigDecimal newBdProfit = new BigDecimal(newProfit);
+
+        BigDecimal changeBdProfit = newBdProfit.subtract(oldBdProfit);
+        changeBdProfit = changeBdProfit.divide(new BigDecimal("100000000")); // That's 10^8
+        String formattedProfit = FORMATTER.format(changeBdProfit);
+
+        changeInProfit = BTC + " " + formattedProfit;
 
         return changeInProfit;
     }
