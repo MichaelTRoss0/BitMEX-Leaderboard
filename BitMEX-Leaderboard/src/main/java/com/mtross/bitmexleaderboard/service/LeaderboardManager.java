@@ -10,7 +10,6 @@ import com.mtross.bitmexleaderboard.entity.User;
 import java.io.IOException;
 import java.net.ProtocolException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,25 +25,33 @@ public interface LeaderboardManager {
 
     public List<Leaderboard> findAllLeaderboards();
 
-    public Leaderboard saveLeaderboard(Leaderboard leaderboard);
+    public Leaderboard addLeaderboard(Leaderboard leaderboard);
 
-    public List<Leaderboard> saveAllLeaderboards(List<Leaderboard> leaderboards);
+    public List<Leaderboard> addAllLeaderboards(List<Leaderboard> leaderboards);
 
+//    public Leaderboard updateLeaderboardById(Integer id);
+//
     public void deleteLeaderboardById(Integer id);
 
     public void deleteAllLeaderboards();
+
+    public void flushLeaderboards();
 
     public User findUserByUsername(String username);
 
     public List<User> findAllUsers();
 
-    public User saveUser(User user);
+    public User addUser(User user);
 
-    public List<User> saveAllUsers(List<User> users);
+    public List<User> addAllUsers(List<User> users);
 
+//    public User updateUserById(Integer id);
+//
     public void deleteUserById(Integer id);
 
     public void deleteAllUsers();
+
+    public void flushUsers();
 
     public Leaderboard makeLeaderboard() throws ProtocolException, IOException;
 

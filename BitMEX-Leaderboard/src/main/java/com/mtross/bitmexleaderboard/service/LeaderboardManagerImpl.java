@@ -66,26 +66,36 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @Transactional
     @Override
-    public Leaderboard saveLeaderboard(Leaderboard leaderboard) {
-        return leaderboardRepository.save(leaderboard);
+    public Leaderboard addLeaderboard(Leaderboard leaderboard) {
+        return leaderboardRepository.saveAndFlush(leaderboard);
     }
 
     @Transactional
     @Override
-    public List<Leaderboard> saveAllLeaderboards(List<Leaderboard> leaderboards) {
-        return leaderboardRepository.saveAll(leaderboards);
+    public List<Leaderboard> addAllLeaderboards(List<Leaderboard> leaderboards) {
+        List<Leaderboard> savedLeaderboards = leaderboardRepository.saveAll(leaderboards);
+        leaderboardRepository.flush();
+        return savedLeaderboards;
     }
 
     @Transactional
     @Override
     public void deleteLeaderboardById(Integer id) {
         leaderboardRepository.deleteById(id);
+        leaderboardRepository.flush();
     }
 
     @Transactional
     @Override
     public void deleteAllLeaderboards() {
         leaderboardRepository.deleteAll();
+        leaderboardRepository.flush();
+    }
+
+    @Transactional
+    @Override
+    public void flushLeaderboards() {
+        leaderboardRepository.flush();
     }
 
     @Transactional
@@ -102,26 +112,36 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @Transactional
     @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public User addUser(User user) {
+        return userRepository.saveAndFlush(user);
     }
 
     @Transactional
     @Override
-    public List<User> saveAllUsers(List<User> users) {
-        return userRepository.saveAll(users);
+    public List<User> addAllUsers(List<User> users) {
+        List<User> savedUsers = userRepository.saveAll(users);
+        userRepository.flush();
+        return savedUsers;
     }
 
     @Transactional
     @Override
     public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
+        userRepository.flush();
     }
 
     @Transactional
     @Override
     public void deleteAllUsers() {
         userRepository.deleteAll();
+        userRepository.flush();
+    }
+
+    @Transactional
+    @Override
+    public void flushUsers() {
+        userRepository.flush();
     }
 
     @Override
@@ -130,47 +150,65 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     @Override
+    @Transactional
     public void mergeLeaderboardIntoDatabase(Leaderboard leaderboard) {
         Set<User> leaderboardUsers = leaderboard.getUsers();
 
-        Set<User> usersToBeMerged = createMergedUserSet(leaderboardUsers);
+        Set<User> mergedUsers = createMergedUserSet(leaderboardUsers);
+        //mergedUsers = new HashSet(addAllUsers(new ArrayList(mergedUsers)));
 
         Leaderboard leaderboardToBeMerged = new Leaderboard();
         leaderboardToBeMerged.setDate(leaderboard.getDate());
-        leaderboardToBeMerged.setUsers(usersToBeMerged);
+        leaderboardToBeMerged.setUsers(mergedUsers);
 
-        this.saveAllUsers(new ArrayList(usersToBeMerged));
-        this.saveLeaderboard(leaderboard);
+        addLeaderboard(leaderboard);
     }
 
     private Set<User> createMergedUserSet(Set<User> leaderboardUsers) {
-        Set<User> usersToBeMerged = new HashSet<>();
+        Set<User> mergedUsers = new HashSet<>();
 
         for (User user : leaderboardUsers) {
             String username = user.getUsername();
-            User fromDB = this.findUserByUsername(username);
+            User fromDB = findUserByUsername(username);
 
             if (fromDB != null) {
-                User updatedUser = new User();
-
-                Map<LocalDate, Integer> rankHistory = user.getRankHistory();
-                rankHistory.putAll(fromDB.getRankHistory());
-
-                Map<LocalDate, String> profitHistory = user.getProfitHistory();
-                profitHistory.putAll(fromDB.getProfitHistory());
-
-                updatedUser.setUsername(username);
-                updatedUser.setRealName(user.isRealName());
-                updatedUser.setRankHistory(rankHistory);
-                updatedUser.setProfitHistory(profitHistory);
-
-                usersToBeMerged.add(updatedUser);
+                fromDB = updateUser(fromDB, user);
+                mergedUsers.add(fromDB);
+//                User updatedUser = new User();
+//
+//                Map<LocalDate, Integer> rankHistory = user.getRankHistory();
+//                rankHistory.putAll(fromDB.getRankHistory());
+//
+//                Map<LocalDate, String> profitHistory = user.getProfitHistory();
+//                profitHistory.putAll(fromDB.getProfitHistory());
+//
+//                updatedUser.setUsername(username);
+//                updatedUser.setRealName(user.isRealName());
+//                updatedUser.setRankHistory(rankHistory);
+//                updatedUser.setProfitHistory(profitHistory);
+//
+//                usersToBeMerged.add(updatedUser);
             } else {
-                usersToBeMerged.add(user);
+                mergedUsers.add(user);
             }
         }
+        flushUsers();
 
-        return usersToBeMerged;
+        return mergedUsers;
+    }
+
+    private User updateUser(User fromDB, User user) {
+        User updatedUser = new User();
+        
+        String username = "";
+        // realName
+        // rankHistory
+        // profitHistory
+        
+        updatedUser.setUsername(username);
+        
+        
+        return updatedUser;
     }
 
     @Override
