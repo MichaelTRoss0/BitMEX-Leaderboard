@@ -129,11 +129,6 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         return leaderboardConnector.makeLeaderboard();
     }
 
-//    @Override
-//    public Leaderboard buildLeaderboardEntity(String source, LocalDate date) {
-//        return leaderboardConnector.buildLeaderboardEntity(source, date);
-//    }
-//
     @Override
     public void mergeLeaderboardIntoDatabase(Leaderboard leaderboard) {
         Set<User> leaderboardUsers = leaderboard.getUsers();

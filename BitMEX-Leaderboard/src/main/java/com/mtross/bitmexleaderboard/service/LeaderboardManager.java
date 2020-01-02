@@ -48,8 +48,6 @@ public interface LeaderboardManager {
 
     public Leaderboard makeLeaderboard() throws ProtocolException, IOException;
 
-//    public Leaderboard buildLeaderboardEntity(String source, LocalDate date);
-//
     public void mergeLeaderboardIntoDatabase(Leaderboard leaderboard);
 
     public List<List<String>> createDifferenceTable(Leaderboard lbOld, Leaderboard lbNew);
