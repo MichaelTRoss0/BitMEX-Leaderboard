@@ -80,6 +80,7 @@ public class Generator {
     }
 
     public static List<Leaderboard> generateTDLeaderboards(List<User> users) {
+
         List<Leaderboard> testLeaderboards = new ArrayList<>();
 
         Set<LocalDate> dates = new HashSet<>();
@@ -104,9 +105,11 @@ public class Generator {
         }
 
         return testLeaderboards;
+
     }
 
     public static List<String> generateTestSources(List<Leaderboard> leaderboards) {
+
         List<String> testSources = new ArrayList<>();
 
         for (Leaderboard leaderboard : leaderboards) {
@@ -115,9 +118,11 @@ public class Generator {
         }
 
         return testSources;
+
     }
 
     private static String generateTestSourceFromLeaderboard(Leaderboard leaderboard) {
+
         String testSource = "[";
 
         LocalDate date = leaderboard.getDate();
@@ -133,17 +138,18 @@ public class Generator {
             userString += "\"isRealName\":" + realNameToken + ",";
             userString += "\"name\":\"" + nameToken + "\"";
             userString += "}";
-            
+
             if (i != leaderboard.getUsers().size()) {
                 userString += ",";
             }
-            
+
             testSource += userString;
         }
 
         testSource += "]";
 
         return testSource;
+
     }
 
 }
