@@ -29,8 +29,6 @@ public interface LeaderboardManager {
 
     public List<Leaderboard> saveAllLeaderboards(List<Leaderboard> leaderboards);
 
-//    public Leaderboard updateLeaderboardById(Integer id);
-//
     public void deleteLeaderboardById(Integer id);
 
     public void deleteAllLeaderboards();
@@ -45,8 +43,6 @@ public interface LeaderboardManager {
 
     public List<User> saveAllUsers(List<User> users);
 
-//    public User updateUserById(Integer id);
-//
     public void deleteUserById(Integer id);
 
     public void deleteAllUsers();
