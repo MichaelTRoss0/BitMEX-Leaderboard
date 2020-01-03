@@ -215,7 +215,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     @Override
-    public List<List<String>> createDifferenceTable(Leaderboard lbOld, Leaderboard lbNew) {
+    public List<List<String>> buildDifferenceTable(Leaderboard lbOld, Leaderboard lbNew) {
         List<List<String>> diffTable = new ArrayList<>();
 
         LocalDate oldDate = lbOld.getDate();

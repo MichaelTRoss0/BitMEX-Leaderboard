@@ -9,6 +9,7 @@ import com.mtross.BitMEXLeaderboard.Generator;
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.entity.User;
 import com.mtross.bitmexleaderboard.service.LeaderboardManager;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,6 +41,10 @@ public class LeaderboardManagerTest {
 
     private List<User> TEST_USERS;
     private List<Leaderboard> TEST_LEADERBOARDS;
+
+    // These two variables should be the same as those from LeaderboardManagerImpl.java
+    final private DecimalFormat FORMATTER = new DecimalFormat("#,###.0000;(-#,###.0000)");
+    final private String BTC = "\u20BF";
 
     public LeaderboardManagerTest() {
         TEST_USERS = Generator.generateTDUsers();
@@ -144,7 +149,7 @@ public class LeaderboardManagerTest {
             Map<LocalDate, Integer> rankHistory = user.getRankHistory();
             Map<LocalDate, String> profitHistory = user.getProfitHistory();
 
-            if (user.getUsername().equals("User-Four")) {
+            if (user.getUsername().equals("Name-Four")) {
                 assertFalse(rankHistory.containsKey(day1));
                 assertFalse(rankHistory.containsKey(day2));
                 assertFalse(rankHistory.containsKey(day3));
@@ -169,9 +174,29 @@ public class LeaderboardManagerTest {
     }
 
     /**
-     * Test of createDifferenceTable method, of class LeaderboardManagerImpl.
+     * Test of buildDifferenceTable method, of class LeaderboardManagerImpl.
      */
-//    @Test
-//    public void testCreateDifferenceTable() {
-//    }
+    @Test
+    @Transactional
+    public void testBuildDifferenceTable() {
+        Leaderboard lb1 = TEST_LEADERBOARDS.get(0);
+        Leaderboard lb2 = TEST_LEADERBOARDS.get(1);
+        Leaderboard lb3 = TEST_LEADERBOARDS.get(2);
+        
+        List<List<String>> diffTable12
+                = leaderboardManager.buildDifferenceTable(lb1, lb2);
+        List<List<String>> diffTable13
+                = leaderboardManager.buildDifferenceTable(lb1, lb3);
+        List<List<String>> diffTable23
+                = leaderboardManager.buildDifferenceTable(lb1, lb2);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
 }
