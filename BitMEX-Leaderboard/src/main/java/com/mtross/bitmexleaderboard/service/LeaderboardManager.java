@@ -53,6 +53,6 @@ public interface LeaderboardManager {
 
     public void mergeLeaderboardIntoDatabase(Leaderboard leaderboard);
 
-    public List<List<String>> createDifferenceTable(Leaderboard lbOld, Leaderboard lbNew);
+    public List<List<String>> buildDifferenceTable(Leaderboard lbOld, Leaderboard lbNew);
 
 }
