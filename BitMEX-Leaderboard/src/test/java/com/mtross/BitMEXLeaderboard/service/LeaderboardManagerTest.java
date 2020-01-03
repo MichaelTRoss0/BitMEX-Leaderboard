@@ -40,14 +40,10 @@ public class LeaderboardManagerTest {
 
     private List<User> TEST_USERS;
     private List<Leaderboard> TEST_LEADERBOARDS;
-//    private List<String> TEST_SOURCES;
 
     public LeaderboardManagerTest() {
-//        leaderboardService = new LeaderboardManagerImpl();
-
         TEST_USERS = Generator.generateTDUsers();
         TEST_LEADERBOARDS = Generator.generateTDLeaderboards(TEST_USERS);
-//        TEST_SOURCES = Generator.generateTestSources(TEST_LEADERBOARDS);
     }
 
     @BeforeAll
@@ -116,10 +112,21 @@ public class LeaderboardManagerTest {
         profitHistory3.put(day4, "789789789789");
         user3.setProfitHistory(profitHistory3);
 
+        User user4 = new User();
+        user4.setUsername("Name-Four");
+        user4.setRealName(false);
+        Map<LocalDate, Integer> rankHistory4 = new HashMap<>();
+        rankHistory4.put(day4, 4);
+        user4.setRankHistory(rankHistory4);
+        Map<LocalDate, String> profitHistory4 = new HashMap<>();
+        profitHistory4.put(day4, "000000000000");
+        user4.setProfitHistory(profitHistory4);
+
         Set<User> mergingUsers = new HashSet<>();
         mergingUsers.add(user1);
         mergingUsers.add(user2);
         mergingUsers.add(user3);
+        mergingUsers.add(user4);
 
         Leaderboard mergingLeaderboard = new Leaderboard();
         mergingLeaderboard.setDate(day4);
@@ -131,26 +138,34 @@ public class LeaderboardManagerTest {
         List<User> dbUsers = leaderboardManager.findAllUsers();
 
         assertEquals(TEST_LEADERBOARDS.size() + 1, dbLeaderboards.size());
-        assertEquals(TEST_USERS.size(), dbUsers.size());
+        assertEquals(TEST_USERS.size() + 1, dbUsers.size());
 
         for (User user : dbUsers) {
             Map<LocalDate, Integer> rankHistory = user.getRankHistory();
             Map<LocalDate, String> profitHistory = user.getProfitHistory();
 
-            assertTrue(rankHistory.containsKey(day1));
-            assertTrue(rankHistory.containsKey(day2));
-            assertTrue(rankHistory.containsKey(day3));
-            assertTrue(rankHistory.containsKey(day4));
+            if (user.getUsername().equals("User-Four")) {
+                assertFalse(rankHistory.containsKey(day1));
+                assertFalse(rankHistory.containsKey(day2));
+                assertFalse(rankHistory.containsKey(day3));
+                assertTrue(rankHistory.containsKey(day4));
 
-            assertTrue(profitHistory.containsKey(day1));
-            assertTrue(profitHistory.containsKey(day2));
-            assertTrue(profitHistory.containsKey(day3));
-            assertTrue(profitHistory.containsKey(day4));
+                assertFalse(profitHistory.containsKey(day1));
+                assertFalse(profitHistory.containsKey(day2));
+                assertFalse(profitHistory.containsKey(day3));
+                assertTrue(profitHistory.containsKey(day4));
+            } else {
+                assertTrue(rankHistory.containsKey(day1));
+                assertTrue(rankHistory.containsKey(day2));
+                assertTrue(rankHistory.containsKey(day3));
+                assertTrue(rankHistory.containsKey(day4));
+
+                assertTrue(profitHistory.containsKey(day1));
+                assertTrue(profitHistory.containsKey(day2));
+                assertTrue(profitHistory.containsKey(day3));
+                assertTrue(profitHistory.containsKey(day4));
+            }
         }
-
-//        for (Leaderboard leaderboard : dbLeaderboards) {
-//            
-//        }
     }
 
     /**
@@ -159,5 +174,4 @@ public class LeaderboardManagerTest {
 //    @Test
 //    public void testCreateDifferenceTable() {
 //    }
-
 }

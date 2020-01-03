@@ -191,11 +191,13 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     private User updateUser(User fromDB, User user) {
         User updatedUser = new User();
 
+        int userId;
         String username;
         boolean realName;
         Map<LocalDate, Integer> rankHistory = new HashMap<>();
         Map<LocalDate, String> profitHistory = new HashMap<>();
 
+        userId = fromDB.getUserId();
         username = fromDB.getUsername();
         realName = fromDB.isRealName();
         rankHistory.putAll(fromDB.getRankHistory());
@@ -203,6 +205,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         profitHistory.putAll(fromDB.getProfitHistory());
         profitHistory.putAll(user.getProfitHistory());
 
+        updatedUser.setUserId(userId);
         updatedUser.setUsername(username);
         updatedUser.setRealName(realName);
         updatedUser.setRankHistory(rankHistory);
