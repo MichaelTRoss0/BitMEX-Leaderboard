@@ -63,10 +63,10 @@ public class LeaderboardManagerTest {
         leaderboardManager.deleteAllLeaderboards();
         leaderboardManager.deleteAllUsers();
 
-        leaderboardManager.addAllUsers(TEST_USERS);
+        leaderboardManager.saveAllUsers(TEST_USERS);
         TEST_USERS = leaderboardManager.findAllUsers();
 
-        leaderboardManager.addAllLeaderboards(TEST_LEADERBOARDS);
+        leaderboardManager.saveAllLeaderboards(TEST_LEADERBOARDS);
         TEST_LEADERBOARDS = leaderboardManager.findAllLeaderboards();
     }
 
