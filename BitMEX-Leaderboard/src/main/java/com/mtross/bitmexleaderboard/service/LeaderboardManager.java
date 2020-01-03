@@ -25,9 +25,9 @@ public interface LeaderboardManager {
 
     public List<Leaderboard> findAllLeaderboards();
 
-    public Leaderboard addLeaderboard(Leaderboard leaderboard);
+    public Leaderboard saveLeaderboard(Leaderboard leaderboard);
 
-    public List<Leaderboard> addAllLeaderboards(List<Leaderboard> leaderboards);
+    public List<Leaderboard> saveAllLeaderboards(List<Leaderboard> leaderboards);
 
 //    public Leaderboard updateLeaderboardById(Integer id);
 //
@@ -41,9 +41,9 @@ public interface LeaderboardManager {
 
     public List<User> findAllUsers();
 
-    public User addUser(User user);
+    public User saveUser(User user);
 
-    public List<User> addAllUsers(List<User> users);
+    public List<User> saveAllUsers(List<User> users);
 
 //    public User updateUserById(Integer id);
 //

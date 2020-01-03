@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Integer>,
         JpaSpecificationExecutor<User> {
 
-
 //    @Query(value = "SELECT * FROM `User` u "
 //            + "INNER JOIN User_History uh "
 //            + "ON uh.user_id = u.user_id "

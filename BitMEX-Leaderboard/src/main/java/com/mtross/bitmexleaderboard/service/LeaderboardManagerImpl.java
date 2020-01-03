@@ -16,6 +16,7 @@ import java.net.ProtocolException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -61,18 +62,20 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     @Transactional
     @Override
     public List<Leaderboard> findAllLeaderboards() {
-        return leaderboardRepository.findAll();
+        List<Leaderboard> fromDB = leaderboardRepository.findAll();
+        List<Leaderboard> filteredList = new ArrayList<>(new HashSet<>(fromDB));
+        return filteredList;
     }
 
     @Transactional
     @Override
-    public Leaderboard addLeaderboard(Leaderboard leaderboard) {
+    public Leaderboard saveLeaderboard(Leaderboard leaderboard) {
         return leaderboardRepository.saveAndFlush(leaderboard);
     }
 
     @Transactional
     @Override
-    public List<Leaderboard> addAllLeaderboards(List<Leaderboard> leaderboards) {
+    public List<Leaderboard> saveAllLeaderboards(List<Leaderboard> leaderboards) {
         List<Leaderboard> savedLeaderboards = leaderboardRepository.saveAll(leaderboards);
         leaderboardRepository.flush();
         return savedLeaderboards;
@@ -107,18 +110,20 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     @Transactional
     @Override
     public List<User> findAllUsers() {
-        return userRepository.findAll();
+        List<User> fromDB = userRepository.findAll();
+        List<User> filteredList = new ArrayList<>(new HashSet<>(fromDB));
+        return filteredList;
     }
 
     @Transactional
     @Override
-    public User addUser(User user) {
+    public User saveUser(User user) {
         return userRepository.saveAndFlush(user);
     }
 
     @Transactional
     @Override
-    public List<User> addAllUsers(List<User> users) {
+    public List<User> saveAllUsers(List<User> users) {
         List<User> savedUsers = userRepository.saveAll(users);
         userRepository.flush();
         return savedUsers;
@@ -155,13 +160,13 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         Set<User> leaderboardUsers = leaderboard.getUsers();
 
         Set<User> mergedUsers = createMergedUserSet(leaderboardUsers);
-        //mergedUsers = new HashSet(addAllUsers(new ArrayList(mergedUsers)));
+        mergedUsers = new HashSet(saveAllUsers(new ArrayList(mergedUsers)));
 
         Leaderboard leaderboardToBeMerged = new Leaderboard();
         leaderboardToBeMerged.setDate(leaderboard.getDate());
         leaderboardToBeMerged.setUsers(mergedUsers);
 
-        addLeaderboard(leaderboard);
+        saveLeaderboard(leaderboardToBeMerged);
     }
 
     private Set<User> createMergedUserSet(Set<User> leaderboardUsers) {
@@ -174,20 +179,6 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
             if (fromDB != null) {
                 fromDB = updateUser(fromDB, user);
                 mergedUsers.add(fromDB);
-//                User updatedUser = new User();
-//
-//                Map<LocalDate, Integer> rankHistory = user.getRankHistory();
-//                rankHistory.putAll(fromDB.getRankHistory());
-//
-//                Map<LocalDate, String> profitHistory = user.getProfitHistory();
-//                profitHistory.putAll(fromDB.getProfitHistory());
-//
-//                updatedUser.setUsername(username);
-//                updatedUser.setRealName(user.isRealName());
-//                updatedUser.setRankHistory(rankHistory);
-//                updatedUser.setProfitHistory(profitHistory);
-//
-//                usersToBeMerged.add(updatedUser);
             } else {
                 mergedUsers.add(user);
             }
@@ -199,15 +190,24 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     private User updateUser(User fromDB, User user) {
         User updatedUser = new User();
-        
-        String username = "";
-        // realName
-        // rankHistory
-        // profitHistory
-        
+
+        String username;
+        boolean realName;
+        Map<LocalDate, Integer> rankHistory = new HashMap<>();
+        Map<LocalDate, String> profitHistory = new HashMap<>();
+
+        username = fromDB.getUsername();
+        realName = fromDB.isRealName();
+        rankHistory.putAll(fromDB.getRankHistory());
+        rankHistory.putAll(user.getRankHistory());
+        profitHistory.putAll(fromDB.getProfitHistory());
+        profitHistory.putAll(user.getProfitHistory());
+
         updatedUser.setUsername(username);
-        
-        
+        updatedUser.setRealName(realName);
+        updatedUser.setRankHistory(rankHistory);
+        updatedUser.setProfitHistory(profitHistory);
+
         return updatedUser;
     }
 
