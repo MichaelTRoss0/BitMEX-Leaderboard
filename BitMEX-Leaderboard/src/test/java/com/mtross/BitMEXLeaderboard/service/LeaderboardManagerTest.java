@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import junit.framework.Assert;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -182,20 +183,30 @@ public class LeaderboardManagerTest {
         Leaderboard lb1 = TEST_LEADERBOARDS.get(0);
         Leaderboard lb2 = TEST_LEADERBOARDS.get(1);
         Leaderboard lb3 = TEST_LEADERBOARDS.get(2);
-        
+
         List<List<String>> diffTable12
                 = leaderboardManager.buildDifferenceTable(lb1, lb2);
+        List<String> dt12Header = diffTable12.get(0);
+        List<String> dt12Row1 = diffTable12.get(1);
+        List<String> dt12Row2 = diffTable12.get(2);
+        List<String> dt12Row3 = diffTable12.get(3);
+
         List<List<String>> diffTable13
                 = leaderboardManager.buildDifferenceTable(lb1, lb3);
+        List<String> dt13Header = diffTable13.get(0);
+        List<String> dt13Row1 = diffTable13.get(1);
+        List<String> dt13Row2 = diffTable13.get(2);
+        List<String> dt13Row3 = diffTable13.get(3);
+
         List<List<String>> diffTable23
                 = leaderboardManager.buildDifferenceTable(lb1, lb2);
-        
-        
-        
-        
-        
-        
-        
+        List<String> dt23Header = diffTable23.get(0);
+        List<String> dt23Row1 = diffTable23.get(1);
+        List<String> dt23Row2 = diffTable23.get(2);
+        List<String> dt23Row3 = diffTable23.get(3);
+
+        assertEquals(dt12Header, dt13Header);
+        assertEquals(dt13Header, dt23Header);
         
         
     }
