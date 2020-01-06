@@ -9,14 +9,12 @@ import com.mtross.BitMEXLeaderboard.Generator;
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.entity.User;
 import com.mtross.bitmexleaderboard.service.LeaderboardManager;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import junit.framework.Assert;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -43,13 +41,12 @@ public class LeaderboardManagerTest {
     private List<User> TEST_USERS;
     private List<Leaderboard> TEST_LEADERBOARDS;
 
-    // These two variables should be the same as those from LeaderboardManagerImpl.java
-    final private DecimalFormat FORMATTER = new DecimalFormat("#,###.0000;(-#,###.0000)");
-    final private String BTC = "\u20BF";
+    final private String BTC;
 
     public LeaderboardManagerTest() {
-        TEST_USERS = Generator.generateTDUsers();
-        TEST_LEADERBOARDS = Generator.generateTDLeaderboards(TEST_USERS);
+        this.BTC = "\u20BF";
+        this.TEST_USERS = Generator.generateTDUsers();
+        this.TEST_LEADERBOARDS = Generator.generateTDLeaderboards(TEST_USERS);
     }
 
     @BeforeAll
@@ -180,9 +177,19 @@ public class LeaderboardManagerTest {
     @Test
     @Transactional
     public void testBuildDifferenceTable() {
-        Leaderboard lb1 = TEST_LEADERBOARDS.get(0);
-        Leaderboard lb2 = TEST_LEADERBOARDS.get(1);
-        Leaderboard lb3 = TEST_LEADERBOARDS.get(2);
+        Leaderboard lb1 = new Leaderboard();
+        Leaderboard lb2 = new Leaderboard();
+        Leaderboard lb3 = new Leaderboard();
+
+        for (Leaderboard lb : TEST_LEADERBOARDS) {
+            if (lb.getDate().equals(LocalDate.EPOCH)) {
+                lb1 = lb;
+            } else if (lb.getDate().equals(LocalDate.EPOCH.plusDays(1))) {
+                lb2 = lb;
+            } else if (lb.getDate().equals(LocalDate.EPOCH.plusDays(2))) {
+                lb3 = lb;
+            }
+        }
 
         List<List<String>> diffTable12
                 = leaderboardManager.buildDifferenceTable(lb1, lb2);
@@ -191,23 +198,60 @@ public class LeaderboardManagerTest {
         List<String> dt12Row2 = diffTable12.get(2);
         List<String> dt12Row3 = diffTable12.get(3);
 
-        List<List<String>> diffTable13
-                = leaderboardManager.buildDifferenceTable(lb1, lb3);
-        List<String> dt13Header = diffTable13.get(0);
-        List<String> dt13Row1 = diffTable13.get(1);
-        List<String> dt13Row2 = diffTable13.get(2);
-        List<String> dt13Row3 = diffTable13.get(3);
+        List<List<String>> diffTable21
+                = leaderboardManager.buildDifferenceTable(lb2, lb1);
+        List<String> dt21Header = diffTable21.get(0);
+        List<String> dt21Row1 = diffTable21.get(1);
+        List<String> dt21Row2 = diffTable21.get(2);
+        List<String> dt21Row3 = diffTable21.get(3);
 
-        List<List<String>> diffTable23
-                = leaderboardManager.buildDifferenceTable(lb1, lb2);
-        List<String> dt23Header = diffTable23.get(0);
-        List<String> dt23Row1 = diffTable23.get(1);
-        List<String> dt23Row2 = diffTable23.get(2);
-        List<String> dt23Row3 = diffTable23.get(3);
+        List<List<String>> diffTable33
+                = leaderboardManager.buildDifferenceTable(lb3, lb3);
+        List<String> dt33Header = diffTable33.get(0);
+        List<String> dt33Row1 = diffTable33.get(1);
+        List<String> dt33Row2 = diffTable33.get(2);
+        List<String> dt33Row3 = diffTable33.get(3);
 
-        assertEquals(dt12Header, dt13Header);
-        assertEquals(dt13Header, dt23Header);
-        
-        
+        assertEquals(dt12Header, dt21Header);
+        assertEquals(dt21Header, dt33Header);
+
+        assertEquals("1 (+2)", dt12Row1.get(0));
+        assertEquals("Name-Three", dt12Row1.get(1));
+        assertEquals(BTC + " 6,666.6666", dt12Row1.get(2));
+        assertEquals(BTC + " 5,555.5555", dt12Row1.get(3));
+        assertEquals("2 (-1)", dt12Row2.get(0));
+        assertEquals("Name-One", dt12Row2.get(1));
+        assertEquals(BTC + " 5,555.5555", dt12Row2.get(2));
+        assertEquals(BTC + " 2,222.2222", dt12Row2.get(3));
+        assertEquals("3 (-1)", dt12Row3.get(0));
+        assertEquals("Name-Two", dt12Row3.get(1));
+        assertEquals(BTC + " 4,444.4444", dt12Row3.get(2));
+        assertEquals(BTC + " 2,222.2222", dt12Row3.get(3));
+
+        assertEquals("1 (+1)", dt21Row1.get(0));
+        assertEquals("Name-One", dt21Row1.get(1));
+        assertEquals(BTC + " 3,333.3333", dt21Row1.get(2));
+        assertEquals(BTC + " -2,222.2222", dt21Row1.get(3));
+        assertEquals("2 (+1)", dt21Row2.get(0));
+        assertEquals("Name-Two", dt21Row2.get(1));
+        assertEquals(BTC + " 2,222.2222", dt21Row2.get(2));
+        assertEquals(BTC + " -2,222.2222", dt21Row2.get(3));
+        assertEquals("3 (-2)", dt21Row3.get(0));
+        assertEquals("Name-Three", dt21Row3.get(1));
+        assertEquals(BTC + " 1,111.1111", dt21Row3.get(2));
+        assertEquals(BTC + " -5,555.5555", dt21Row3.get(3));
+
+        assertEquals("1 (±0)", dt33Row1.get(0));
+        assertEquals("Name-Two", dt33Row1.get(1));
+        assertEquals(BTC + " 9,999.9999", dt33Row1.get(2));
+        assertEquals(BTC + " 0.0000", dt33Row1.get(3));
+        assertEquals("2 (±0)", dt33Row2.get(0));
+        assertEquals("Name-Three", dt33Row2.get(1));
+        assertEquals(BTC + " 8,888.8888", dt33Row2.get(2));
+        assertEquals(BTC + " 0.0000", dt33Row2.get(3));
+        assertEquals("3 (±0)", dt33Row3.get(0));
+        assertEquals("Name-One", dt33Row3.get(1));
+        assertEquals(BTC + " 7,777.7777", dt33Row3.get(2));
+        assertEquals(BTC + " 0.0000", dt33Row3.get(3));
     }
 }
