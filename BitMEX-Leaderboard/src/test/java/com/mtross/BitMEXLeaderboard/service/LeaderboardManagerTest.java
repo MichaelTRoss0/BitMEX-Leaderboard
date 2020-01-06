@@ -193,27 +193,21 @@ public class LeaderboardManagerTest {
 
         List<List<String>> diffTable12
                 = leaderboardManager.buildDifferenceTable(lb1, lb2);
-        List<String> dt12Header = diffTable12.get(0);
-        List<String> dt12Row1 = diffTable12.get(1);
-        List<String> dt12Row2 = diffTable12.get(2);
-        List<String> dt12Row3 = diffTable12.get(3);
+        List<String> dt12Row1 = diffTable12.get(0);
+        List<String> dt12Row2 = diffTable12.get(1);
+        List<String> dt12Row3 = diffTable12.get(2);
 
         List<List<String>> diffTable21
                 = leaderboardManager.buildDifferenceTable(lb2, lb1);
-        List<String> dt21Header = diffTable21.get(0);
-        List<String> dt21Row1 = diffTable21.get(1);
-        List<String> dt21Row2 = diffTable21.get(2);
-        List<String> dt21Row3 = diffTable21.get(3);
+        List<String> dt21Row1 = diffTable21.get(0);
+        List<String> dt21Row2 = diffTable21.get(1);
+        List<String> dt21Row3 = diffTable21.get(2);
 
         List<List<String>> diffTable33
                 = leaderboardManager.buildDifferenceTable(lb3, lb3);
-        List<String> dt33Header = diffTable33.get(0);
-        List<String> dt33Row1 = diffTable33.get(1);
-        List<String> dt33Row2 = diffTable33.get(2);
-        List<String> dt33Row3 = diffTable33.get(3);
-
-        assertEquals(dt12Header, dt21Header);
-        assertEquals(dt21Header, dt33Header);
+        List<String> dt33Row1 = diffTable33.get(0);
+        List<String> dt33Row2 = diffTable33.get(1);
+        List<String> dt33Row3 = diffTable33.get(2);
 
         assertEquals("1 (+2)", dt12Row1.get(0));
         assertEquals("Name-Three", dt12Row1.get(1));

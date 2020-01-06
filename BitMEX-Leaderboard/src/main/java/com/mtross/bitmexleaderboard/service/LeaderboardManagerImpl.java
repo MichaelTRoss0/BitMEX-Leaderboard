@@ -230,15 +230,6 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         LocalDate oldDate = lbOld.getDate();
         LocalDate newDate = lbNew.getDate();
 
-        List<String> tableHeader = new ArrayList<>();
-        tableHeader.add("Rank (Change)");
-        tableHeader.add("Name");
-        tableHeader.add("Profit BTC");
-        tableHeader.add("Change in Profit");
-        diffTable.add(tableHeader);
-
-        //Set<User> users = lbNew.getUsers();
-        //for (User user : users) {
         for (int i = 1; i <= lbNew.getUsers().size(); i++) {
             List<String> userInfo = new ArrayList<>();
 
