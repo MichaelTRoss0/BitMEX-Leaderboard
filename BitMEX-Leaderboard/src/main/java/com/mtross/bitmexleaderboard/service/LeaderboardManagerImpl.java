@@ -12,6 +12,8 @@ import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.entity.User;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import static java.math.RoundingMode.DOWN;
 import java.net.ProtocolException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -41,10 +43,17 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     @Autowired
     private LeaderboardConnectorImpl leaderboardConnector;
 
-    final private DecimalFormat FORMATTER = new DecimalFormat("#,###.0000;(-#,###.0000)");
-    final private String BTC = "\u20BF";
+    final private int SCALE;
+    final private RoundingMode ROUNDING_MODE;
+    final private DecimalFormat FORMATTER;
+    final private String BTC;
 
     public LeaderboardManagerImpl() {
+        this.SCALE = 4;
+        this.ROUNDING_MODE = DOWN;
+        this.FORMATTER = new DecimalFormat("#,##0.0000;-#,##0.0000");
+        FORMATTER.setRoundingMode(ROUNDING_MODE);
+        this.BTC = "\u20BF";
     }
 
     @Transactional
@@ -228,23 +237,26 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         tableHeader.add("Change in Profit");
         diffTable.add(tableHeader);
 
-        Set<User> users = lbNew.getUsers();
-        for (User user : users) {
+        //Set<User> users = lbNew.getUsers();
+        //for (User user : users) {
+        for (int i = 1; i <= lbNew.getUsers().size(); i++) {
             List<String> userInfo = new ArrayList<>();
+
+            User currentUser = lbNew.getUserByRank(i);
 
             String rankAndChange;
             String name;
             String profitBTC;
             String changeInProfit;
 
-            Integer oldRank = user.getRankFromDate(oldDate);
-            Integer newRank = user.getRankFromDate(newDate);
+            Integer oldRank = currentUser.getRankFromDate(oldDate);
+            Integer newRank = currentUser.getRankFromDate(newDate);
             rankAndChange = calculateChangeInRank(oldRank, newRank);
 
-            name = user.getUsername();
+            name = currentUser.getUsername();
 
-            String oldProfit = user.getProfitFromDate(oldDate);
-            String newProfit = user.getProfitFromDate(newDate);
+            String oldProfit = currentUser.getProfitFromDate(oldDate);
+            String newProfit = currentUser.getProfitFromDate(newDate);
             profitBTC = formatProfit(newProfit);
             changeInProfit = calculateChangeInProfit(oldProfit, newProfit);
 
@@ -265,7 +277,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         rankAndChange.append(newRank);
 
         if (oldRank != null) {
-            int changeInRank = newRank - oldRank;
+            int changeInRank = oldRank - newRank;
 
             if (changeInRank == 0) {
                 rankAndChange.append(" (±0)");
@@ -284,8 +296,9 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     private String formatProfit(String profit) {
         String profitBTC;
 
-        BigDecimal bdProfit = new BigDecimal(profit);
-        bdProfit = bdProfit.divide(new BigDecimal("100000000")); // That's 10^8
+        BigDecimal bdProfit = new BigDecimal(profit).setScale(SCALE, ROUNDING_MODE);
+        bdProfit // 10^8
+                = bdProfit.divide(new BigDecimal("100000000").setScale(SCALE, ROUNDING_MODE));
         String formattedProfit = FORMATTER.format(bdProfit);
 
         profitBTC = BTC + " " + formattedProfit;
@@ -296,11 +309,13 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     private String calculateChangeInProfit(String oldProfit, String newProfit) {
         String changeInProfit;
 
-        BigDecimal oldBdProfit = new BigDecimal(oldProfit);
-        BigDecimal newBdProfit = new BigDecimal(newProfit);
+        BigDecimal oldBdProfit = new BigDecimal(oldProfit).setScale(SCALE, ROUNDING_MODE);
+        BigDecimal newBdProfit = new BigDecimal(newProfit).setScale(SCALE, ROUNDING_MODE);
 
-        BigDecimal changeBdProfit = newBdProfit.subtract(oldBdProfit);
-        changeBdProfit = changeBdProfit.divide(new BigDecimal("100000000")); // That's 10^8
+        BigDecimal changeBdProfit
+                = newBdProfit.subtract(oldBdProfit).setScale(SCALE, ROUNDING_MODE);
+        changeBdProfit // 10^8
+                = changeBdProfit.divide(new BigDecimal("100000000").setScale(SCALE, ROUNDING_MODE));
         String formattedProfit = FORMATTER.format(changeBdProfit);
 
         changeInProfit = BTC + " " + formattedProfit;
