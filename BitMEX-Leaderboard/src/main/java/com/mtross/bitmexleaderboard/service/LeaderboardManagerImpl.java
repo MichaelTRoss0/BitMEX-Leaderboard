@@ -225,6 +225,11 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @Override
     public List<List<String>> buildDifferenceTable(Leaderboard lbOld, Leaderboard lbNew) {
+        if (lbOld == null || lbNew == null) {
+            Leaderboard emptyLB = makeEmptyLeaderboard();
+            return buildDifferenceTable(emptyLB, emptyLB);
+        }
+
         List<List<String>> diffTable = new ArrayList<>();
 
         LocalDate oldDate = lbOld.getDate();
@@ -312,6 +317,31 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         changeInProfit = BTC + " " + formattedProfit;
 
         return changeInProfit;
+    }
+
+    private Leaderboard makeEmptyLeaderboard() {
+        User emptyUser = new User();
+        Leaderboard emptyLB = new Leaderboard();
+
+        LocalDate now = LocalDate.now();
+
+        Map<LocalDate, Integer> rankHistory = new HashMap<>();
+        rankHistory.put(now, 0);
+        Map<LocalDate, String> profitHistory = new HashMap<>();
+        profitHistory.put(now, "000000000000");
+
+        emptyUser.setUsername("One-Or-More-Invalid-Dates");
+        emptyUser.setRealName(false);
+        emptyUser.setRankHistory(rankHistory);
+        emptyUser.setProfitHistory(profitHistory);
+
+        Set<User> users = new HashSet();
+        users.add(emptyUser);
+
+        emptyLB.setDate(now);
+        emptyLB.setUsers(users);
+
+        return emptyLB;
     }
 
 }
