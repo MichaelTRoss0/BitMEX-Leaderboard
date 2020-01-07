@@ -8,8 +8,12 @@ package com.mtross.bitmexleaderboard.controller;
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,28 +27,49 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    private LeaderboardManagerImpl service;
-    
-//    private final Clock utcClock = Clock.systemUTC();
-//    private final ZoneOffset utcOffset = ZoneOffset.UTC;
-//    private final ZoneId utc = ZoneId.of("Z");
+    private LeaderboardManagerImpl manager;
+
+    private final Clock UTC_CLOCK = Clock.systemUTC();
+    private final ZoneOffset utcOffset = ZoneOffset.UTC;
+    private final ZoneId utc = ZoneId.of("Z");
 
     @GetMapping("")
     public String getIndex(Model model) {
-        return getLeaderboards(model);
+        return homeStart(model);
     }
 
     @GetMapping("/home")
-    public String getLeaderboards(Model model) {
-        Leaderboard leaderboardTDY = new Leaderboard();
-        Leaderboard leaderboardYDA = new Leaderboard();
-        
-        
-        
-        model.addAttribute("leaderboardTDY", leaderboardTDY);
-        model.addAttribute("leaderboardYDA", leaderboardYDA);
+    public String homeStart(Model model) {
+        Leaderboard leaderboardYDA;
+        Leaderboard leaderboardTDY;
+
+        List<List<String>> differenceTable;
+
+        LocalDate today = findDateForToday();
+        LocalDate yesterday = today.minusDays(1);
+
+        leaderboardYDA = manager.findLeaderboardByDate(yesterday);
+        leaderboardTDY = manager.findLeaderboardByDate(today);
+
+        differenceTable = manager.buildDifferenceTable(leaderboardYDA, leaderboardTDY);
+
+        model.addAttribute("today", today);
+        model.addAttribute("yesterday", yesterday);
+        model.addAttribute("differenceTable", differenceTable);
 
         return "home";
+    }
+
+    private LocalDate findDateForToday() {
+        LocalDateTime now = LocalDateTime.now(UTC_CLOCK);
+
+        int hour = now.getHour();
+        int minute = now.getMinute();
+        if (hour > 12 || (hour == 12 && minute >= 30)) {
+            return LocalDate.now(UTC_CLOCK);
+        } else {
+            return LocalDate.now(UTC_CLOCK).minusDays(1);
+        }
     }
 
 }
