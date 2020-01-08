@@ -323,12 +323,12 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         User emptyUser = new User();
         Leaderboard emptyLB = new Leaderboard();
 
-        LocalDate now = LocalDate.now();
+        LocalDate epoch = LocalDate.EPOCH;
 
         Map<LocalDate, Integer> rankHistory = new HashMap<>();
-        rankHistory.put(now, 0);
+        rankHistory.put(epoch, 1);
         Map<LocalDate, String> profitHistory = new HashMap<>();
-        profitHistory.put(now, "000000000000");
+        profitHistory.put(epoch, "000000000000");
 
         emptyUser.setUsername("One-Or-More-Invalid-Dates");
         emptyUser.setRealName(false);
@@ -338,7 +338,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         Set<User> users = new HashSet();
         users.add(emptyUser);
 
-        emptyLB.setDate(now);
+        emptyLB.setDate(epoch);
         emptyLB.setUsers(users);
 
         return emptyLB;

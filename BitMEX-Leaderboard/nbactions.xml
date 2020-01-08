@@ -8,4 +8,12 @@
                 <goal>war:war</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-Compile jar</actionName>
+            <displayName>Compile jar</displayName>
+            <goals>
+                <goal>compile</goal>
+                <goal>jar:jar</goal>
+            </goals>
+        </action>
     </actions>

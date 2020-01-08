@@ -96,11 +96,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="List<String> : ${differenceTable}">
-                                <td th:text="${differenceTable.get(0)}">X (±Y)</td>
-                                <td th:text="${differenceTable.get(1)}">Username</td>
-                                <td th:text="${differenceTable.get(2)}">₿ 0.0000</td>
-                                <td th:text="${differenceTable.get(3)}">₿ 0.0000</td>
+                            <tr th:each="userRow : ${differenceTable}">
+                                <td th:text="${userRow.get(0)}">X (±Y)</td>
+                                <td th:text="${userRow.get(1)}">Username</td>
+                                <td th:text="${userRow.get(2)}">₿ 0.0000</td>
+                                <td th:text="${userRow.get(3)}">₿ 0.0000</td>
                             </tr>
                         </tbody>
                     </table>
