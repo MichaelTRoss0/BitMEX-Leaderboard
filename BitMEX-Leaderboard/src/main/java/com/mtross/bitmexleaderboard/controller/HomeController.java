@@ -5,19 +5,18 @@
  */
 package com.mtross.bitmexleaderboard.controller;
 
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 
 /**
  *
@@ -30,8 +29,6 @@ public class HomeController {
     private LeaderboardManagerImpl manager;
 
     private final Clock UTC_CLOCK = Clock.systemUTC();
-    private final ZoneOffset utcOffset = ZoneOffset.UTC;
-    private final ZoneId utc = ZoneId.of("Z");
 
     @GetMapping("")
     public String getIndex(Model model) {

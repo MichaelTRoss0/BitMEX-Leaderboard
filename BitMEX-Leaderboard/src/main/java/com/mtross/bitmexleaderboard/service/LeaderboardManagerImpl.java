@@ -5,15 +5,11 @@
  */
 package com.mtross.bitmexleaderboard.service;
 
-import com.mtross.bitmexleaderboard.component.LeaderboardConnectorImpl;
-import com.mtross.bitmexleaderboard.dao.LeaderboardRepository;
-import com.mtross.bitmexleaderboard.dao.UserRepository;
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.entity.User;
+import static java.math.RoundingMode.DOWN;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import static java.math.RoundingMode.DOWN;
 import java.net.ProtocolException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -23,9 +19,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mtross.bitmexleaderboard.component.LeaderboardConnectorImpl;
+import com.mtross.bitmexleaderboard.dao.LeaderboardRepository;
+import com.mtross.bitmexleaderboard.dao.UserRepository;
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.entity.User;
 
 /**
  *

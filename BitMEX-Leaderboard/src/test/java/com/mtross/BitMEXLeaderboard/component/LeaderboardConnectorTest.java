@@ -5,27 +5,32 @@
  */
 package com.mtross.BitMEXLeaderboard.component;
 
-import com.mtross.BitMEXLeaderboard.Generator;
-import com.mtross.bitmexleaderboard.component.LeaderboardConnector;
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.entity.User;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import static org.junit.Assert.*;
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.mtross.BitMEXLeaderboard.Generator;
+import com.mtross.bitmexleaderboard.component.LeaderboardConnector;
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.entity.User;
 
 /**
  *
