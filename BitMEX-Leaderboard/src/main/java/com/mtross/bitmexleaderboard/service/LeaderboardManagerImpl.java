@@ -172,7 +172,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         Set<User> leaderboardUsers = leaderboard.getUsers();
 
         Set<User> mergedUsers = createMergedUserSet(leaderboardUsers);
-        mergedUsers = new HashSet(saveAllUsers(new ArrayList(mergedUsers)));
+        mergedUsers = new HashSet<>(saveAllUsers(new ArrayList<>(mergedUsers)));
 
         Leaderboard leaderboardToBeMerged = new Leaderboard();
         leaderboardToBeMerged.setDate(leaderboard.getDate());
@@ -338,7 +338,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         emptyUser.setRankHistory(rankHistory);
         emptyUser.setProfitHistory(profitHistory);
 
-        Set<User> users = new HashSet();
+        Set<User> users = new HashSet<>();
         users.add(emptyUser);
 
         emptyLB.setDate(epoch);
