@@ -5,10 +5,11 @@
  */
 package com.mtross.bitmexleaderboard.dao;
 
-import com.mtross.bitmexleaderboard.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
+
+import com.mtross.bitmexleaderboard.entity.User;
 
 /**
  *

@@ -5,12 +5,13 @@
  */
 package com.mtross.bitmexleaderboard.service;
 
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.entity.User;
 import java.io.IOException;
 import java.net.ProtocolException;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.entity.User;
 
 /**
  *

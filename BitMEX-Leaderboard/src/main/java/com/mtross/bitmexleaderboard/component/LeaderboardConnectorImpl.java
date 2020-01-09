@@ -5,8 +5,6 @@
  */
 package com.mtross.bitmexleaderboard.component;
 
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.entity.User;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,8 +17,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import javax.net.ssl.HttpsURLConnection;
+
 import org.springframework.stereotype.Component;
+
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.entity.User;
 
 /**
  *
@@ -75,7 +78,6 @@ public class LeaderboardConnectorImpl implements LeaderboardConnector {
     public Leaderboard buildLeaderboardEntity(String response, LocalDate date) {
         Leaderboard leaderboard = new Leaderboard();
 
-//        leaderboard.setLeaderboardId(0);
         leaderboard.setDate(date);
         leaderboard.setUsers(parseResponse(response, date));
 
@@ -114,7 +116,6 @@ public class LeaderboardConnectorImpl implements LeaderboardConnector {
         rankHistory.put(date, i + 1);
         profitHistory.put(date, profitToken);
 
-//        currentUser.setUserId(0);
         currentUser.setUsername(usernameToken);
         currentUser.setRealName(Boolean.valueOf(realNameToken));
         currentUser.setRankHistory(rankHistory);

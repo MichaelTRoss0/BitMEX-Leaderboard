@@ -5,24 +5,28 @@
  */
 package com.mtross.BitMEXLeaderboard.dao;
 
-import com.mtross.BitMEXLeaderboard.Generator;
-import com.mtross.bitmexleaderboard.dao.LeaderboardRepository;
-import com.mtross.bitmexleaderboard.dao.UserRepository;
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
-import com.mtross.bitmexleaderboard.entity.User;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.time.LocalDate;
 import java.util.List;
-import static org.junit.Assert.*;
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mtross.BitMEXLeaderboard.Generator;
+import com.mtross.bitmexleaderboard.dao.LeaderboardRepository;
+import com.mtross.bitmexleaderboard.dao.UserRepository;
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
+import com.mtross.bitmexleaderboard.entity.User;
 
 /**
  *

@@ -5,11 +5,12 @@
  */
 package com.mtross.bitmexleaderboard.component;
 
-import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.time.LocalDate;
+
+import com.mtross.bitmexleaderboard.entity.Leaderboard;
 
 /**
  *
