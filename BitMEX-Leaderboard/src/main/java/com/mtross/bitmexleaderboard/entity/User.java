@@ -41,7 +41,12 @@ import lombok.Data;
 @Transactional
 public class User implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8606621996482852553L;
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id")
     private int userId;

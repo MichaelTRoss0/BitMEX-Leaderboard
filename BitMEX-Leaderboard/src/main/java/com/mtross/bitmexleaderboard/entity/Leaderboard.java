@@ -30,7 +30,12 @@ import lombok.Data;
 @Table(name = "Leaderboard")
 public class Leaderboard implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2458953251963141749L;
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "leaderboard_id")
     private int leaderboardId;
