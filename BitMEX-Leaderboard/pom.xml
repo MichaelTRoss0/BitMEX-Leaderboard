@@ -17,7 +17,6 @@
 
     <properties>
         <java.version>11</java.version>
-        <!--<jackson.version>2.10.0</jackson.version>-->
     </properties>
 
     <dependencies>
@@ -70,50 +69,12 @@
             </exclusions>
         </dependency>
 
-        <!--        <dependency>  
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-        </dependency>-->
-
-        <!--        <dependency>
-            https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java 
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-        </dependency>-->
-
-        <!--        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
-
-
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-        </dependency>-->
-
-        <!--        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.1</version>
-        </dependency>-->
-
-        <!--        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jdbc</artifactId>
-        </dependency>-->
-
-        <!--        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-aws</artifactId>
             <version>2.1.4.RELEASE</version>
-        </dependency>-->
+        </dependency> -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
