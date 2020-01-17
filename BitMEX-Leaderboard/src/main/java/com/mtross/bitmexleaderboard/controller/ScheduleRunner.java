@@ -1,11 +1,11 @@
-package com.mtross.bitmexleaderboard.config;
+package com.mtross.bitmexleaderboard.controller;
 
 import java.io.IOException;
 import java.net.ProtocolException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
@@ -14,7 +14,7 @@ import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 *
 * @author mike
 */
-@Configuration
+@Component
 public class ScheduleRunner {
 
 	@Autowired
