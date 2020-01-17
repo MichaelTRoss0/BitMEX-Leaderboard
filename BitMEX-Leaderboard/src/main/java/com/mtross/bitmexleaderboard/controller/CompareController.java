@@ -25,29 +25,29 @@ import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 @Controller
 public class CompareController {
 
-    @Autowired
-    private LeaderboardManagerImpl manager;
-    
-    @GetMapping("/compare")
-    public String compareLeaderboards(HttpServletRequest request, Model model) {
-        Leaderboard leaderboardOld;
-        Leaderboard leaderboardNew;
+	@Autowired
+	private LeaderboardManagerImpl manager;
 
-        List<List<String>> differenceTable;
+	@GetMapping("/compare")
+	public String compareLeaderboards(HttpServletRequest request, Model model) {
+		Leaderboard leaderboardOld;
+		Leaderboard leaderboardNew;
 
-        LocalDate startDate = LocalDate.parse(request.getParameter(""));
-        LocalDate stopDate = LocalDate.parse(request.getParameter(""));
+		List<List<String>> differenceTable;
 
-        leaderboardOld = manager.findLeaderboardByDate(startDate);
-        leaderboardNew = manager.findLeaderboardByDate(stopDate);
+		LocalDate startDate = LocalDate.parse(request.getParameter(""));
+		LocalDate stopDate = LocalDate.parse(request.getParameter(""));
 
-        differenceTable = manager.buildDifferenceTable(leaderboardOld, leaderboardNew);
+		leaderboardOld = manager.findLeaderboardByDate(startDate);
+		leaderboardNew = manager.findLeaderboardByDate(stopDate);
 
-        model.addAttribute("stopDate", stopDate);
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("differenceTable", differenceTable);
-        
-        return "compare";
-    }
-    
+		differenceTable = manager.buildDifferenceTable(leaderboardOld, leaderboardNew);
+
+		model.addAttribute("stopDate", stopDate);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("differenceTable", differenceTable);
+
+		return "compare";
+	}
+
 }
