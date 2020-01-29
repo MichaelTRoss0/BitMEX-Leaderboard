@@ -28,8 +28,8 @@
 
 # OS generated files #
 ######################
-.DS_Store
-.DS_Store?
+*.DS_Store
+*.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
@@ -38,9 +38,4 @@ Thumbs.db
 
 # Manually added to .gitignore #
 ######################
-BitMEX-Leaderboard/src/main/.DS_Store
-BitMEX-Leaderboard/src/main/java/.DS_Store
-BitMEX-Leaderboard/src/main/java/com/.DS_Store
-BitMEX-Leaderboard/src/main/java/com/mtross/.DS_Store
-BitMEX-Leaderboard/src/main/java/com/mtross/BitMEXLeaderboard/.DS_Store
 /BitMEX-Leaderboard/nbproject/
