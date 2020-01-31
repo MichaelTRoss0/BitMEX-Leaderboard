@@ -1,4 +1,4 @@
-package com.mtross.bitmexleaderboard.controller;
+package com.mtross.bitmexleaderboard.component;
 
 import java.io.IOException;
 import java.net.ProtocolException;
@@ -11,19 +11,19 @@ import com.mtross.bitmexleaderboard.entity.Leaderboard;
 import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 
 /**
-*
-* @author mike
-*/
+ *
+ * @author mike
+ */
 @Component
-public class ScheduleRunner {
+public class ScheduleRunnerImpl {
 
 	@Autowired
 	private LeaderboardManagerImpl manager;
-	
+
 	@Scheduled(cron = "0 5 12 * * ?", zone = "UTC")
 	public void scheduledDataCollection() throws ProtocolException, IOException {
 		Leaderboard leaderboard = manager.makeLeaderboard();
 		manager.mergeLeaderboardIntoDatabase(leaderboard);
 	}
-	
+
 }

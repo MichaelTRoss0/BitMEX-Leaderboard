@@ -35,8 +35,8 @@ public class CompareController {
 
 		List<List<String>> differenceTable;
 
-		LocalDate startDate = LocalDate.parse(request.getParameter(""));
-		LocalDate stopDate = LocalDate.parse(request.getParameter(""));
+		LocalDate startDate = LocalDate.parse(request.getParameter("startDate"));
+		LocalDate stopDate = LocalDate.parse(request.getParameter("stopDate"));
 
 		leaderboardOld = manager.findLeaderboardByDate(startDate);
 		leaderboardNew = manager.findLeaderboardByDate(stopDate);

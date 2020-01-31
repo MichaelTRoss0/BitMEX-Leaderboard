@@ -16,12 +16,10 @@ import com.mtross.bitmexleaderboard.entity.Leaderboard;
  *
  * @author mike
  */
-//@Component
 public interface LeaderboardConnector {
 
-    public Leaderboard makeLeaderboard()
-            throws MalformedURLException, ProtocolException, IOException;
+	public Leaderboard makeLeaderboard() throws MalformedURLException, ProtocolException, IOException;
 
-    public Leaderboard buildLeaderboardEntity(String response, LocalDate date);
+	public Leaderboard buildLeaderboardEntity(String response, LocalDate date);
 
 }
