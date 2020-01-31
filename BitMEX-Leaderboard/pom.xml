@@ -9,6 +9,7 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.mtross</groupId>
 	<artifactId>BitMEX-Leaderboard</artifactId>
 	<version>1.0.0</version>

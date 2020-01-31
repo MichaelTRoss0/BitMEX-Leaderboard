@@ -28,71 +28,69 @@ import javax.persistence.Table;
 import javax.transaction.Transactional;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
  * @author mike
  */
 @Data
+@EqualsAndHashCode(exclude = "leaderboards")
 @Entity
-@Table(name = "`User`")
-@SecondaryTable(name = "User_History",
-        pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@Table(name = "`user`")
+@SecondaryTable(name = "user_rank", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
+@SecondaryTable(name = "user_profit", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 @Transactional
 public class User implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8606621996482852553L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "user_id")
-    private int userId;
+	@Id
+	@Column(name = "user_id")
+	private int userId;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+	@Column(name = "username", nullable = false)
+	private String username;
 
-    @Column(name = "real_name", nullable = false)
-    private boolean realName;
+	@Column(name = "real_name", nullable = false)
+	private boolean realName;
 
-    @ElementCollection
-    @CollectionTable(name = "User_History",
-            joinColumns = {
-                @JoinColumn(name = "user_id")})
-    @MapKeyColumn(name = "`date`")
-    @Column(name = "`rank`")
-    private Map<LocalDate, Integer> rankHistory = new HashMap<>();
+	@ElementCollection
+	@CollectionTable(name = "user_rank", joinColumns = { @JoinColumn(name = "user_id") })
+	@MapKeyColumn(name = "`date`")
+	@Column(name = "`rank`")
+	private Map<LocalDate, Integer> rankHistory = new HashMap<>();
 
-    @ElementCollection
-    @CollectionTable(name = "User_History",
-            joinColumns = {
-                @JoinColumn(name = "user_id")})
-    @MapKeyColumn(name = "`date`")
-    @Column(name = "profit")
-    private Map<LocalDate, String> profitHistory = new HashMap<>();
+	@ElementCollection
+	@CollectionTable(name = "user_profit", joinColumns = { @JoinColumn(name = "user_id") })
+	@MapKeyColumn(name = "`date`")
+	@Column(name = "profit")
+	private Map<LocalDate, String> profitHistory = new HashMap<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
-    private Set<Leaderboard> leaderboards;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private Set<Leaderboard> leaderboards;
 
-    public boolean appearsOnDay(LocalDate date) {
+	public boolean appearsOnDay(LocalDate date) {
 
-        Set<LocalDate> dateSet = this.rankHistory.keySet();
-        return dateSet.contains(date);
+		Set<LocalDate> dateSet = this.rankHistory.keySet();
+		return dateSet.contains(date);
 
-    }
+	}
 
-    public Integer getRankFromDate(LocalDate date) {
+	public Integer getRankFromDate(LocalDate date) {
 
-        return this.rankHistory.get(date);
+		return this.rankHistory.get(date);
 
-    }
+	}
 
-    public String getProfitFromDate(LocalDate date) {
+	public String getProfitFromDate(LocalDate date) {
 
-        return this.profitHistory.get(date);
+		return this.profitHistory.get(date);
 
-    }
+	}
 
 }

@@ -121,7 +121,7 @@ public class LeaderboardConnectorImpl implements LeaderboardConnector {
         currentUser.setRankHistory(rankHistory);
         currentUser.setProfitHistory(profitHistory);
 
-        return currentUser;
-    }
+		return currentUser;
+	}
 
 }

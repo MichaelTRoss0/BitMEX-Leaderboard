@@ -27,53 +27,50 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name = "Leaderboard")
+@Table(name = "leaderboard")
 public class Leaderboard implements Serializable {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2458953251963141749L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "leaderboard_id")
-    private int leaderboardId;
+	@Id
+	@Column(name = "leaderboard_id")
+	private int leaderboardId;
 
-    @Column(name = "`date`", unique = true, nullable = false)
-    private LocalDate date;
+	@Column(name = "`date`", unique = true, nullable = false)
+	private LocalDate date;
 
-    @ManyToMany
-    @JoinTable(name = "Leaderboard_User",
-            joinColumns = {
-                @JoinColumn(name = "leaderboard_id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "user_id")})
-    private Set<User> users;
+	@ManyToMany
+	@JoinTable(name = "leaderboard_user", joinColumns = { @JoinColumn(name = "leaderboard_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	private Set<User> users;
 
-    public User getUserByRank(Integer rank) {
+	public User getUserByRank(Integer rank) {
 
-        for (User user : this.users) {
-            int userRank = user.getRankHistory().get(this.date);
-            if (userRank == rank) {
-                return user;
-            }
-        }
+		for (User user : this.users) {
+			int userRank = user.getRankHistory().get(this.date);
+			if (userRank == rank) {
+				return user;
+			}
+		}
 
-        return null;
+		return null;
 
-    }
+	}
 
-    public User getUserByUserame(String username) {
+	public User getUserByUserame(String username) {
 
-        for (User user : this.users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
+		for (User user : this.users) {
+			if (user.getUsername().equals(username)) {
+				return user;
+			}
+		}
 
-        return null;
+		return null;
 
-    }
+	}
 
 }

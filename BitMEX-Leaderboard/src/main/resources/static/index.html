@@ -59,9 +59,23 @@
                 </div>
             </header>
 
-            <div class="row">
+            <br>
+
+            <div class="row text-center">
                 <div class="col-md-12">
-                    <form action="getNewTable" method="GET">
+                    <a href="home" class="btn btn-primary">See Changes from Yesterday</a>
+                </div>
+
+                <br><br><br>
+
+                <div class="col-md-12">
+                    <p>OR</p>
+                </div>
+
+                <br><br>
+
+                <div class="col-md-12">
+                    <form action="compare" method="GET">
                         <div class="form-group row">
                             <label for="startDate" class="col-5 col-form-label">
                                 Start Date:</label>
@@ -78,35 +92,12 @@
                                        id="startDate" class="form-control">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Make New Table</button>
+                        <button type="submit" class="btn btn-primary">Compare Leaderboards</button>
                     </form>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Rank (Change)</th>
-                                <th>Name</th>
-                                <th>Profit BTC</th>
-                                <th>Change in Profit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>X (±Y)</td>
-                                <td>Username</td>
-                                <td>₿ 0.0000</td>
-                                <td>₿ 0.0000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
+            <br><br>
 
             <footer class="row">
                 <div class="col-md-12">

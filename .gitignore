@@ -39,3 +39,4 @@ Thumbs.db
 # Manually added to .gitignore #
 ######################
 /BitMEX-Leaderboard/nbproject/
+BitMEX-Leaderboard/src/main/webapp/WEB-INF/classes/application.properties
