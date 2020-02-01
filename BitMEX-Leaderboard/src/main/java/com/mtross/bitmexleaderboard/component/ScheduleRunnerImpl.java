@@ -15,7 +15,7 @@ import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
  * @author mike
  */
 @Component
-public class ScheduleRunnerImpl {
+public class ScheduleRunnerImpl implements ScheduleRunner {
 
 	@Autowired
 	private LeaderboardManagerImpl manager;

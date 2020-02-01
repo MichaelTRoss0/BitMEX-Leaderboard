@@ -25,48 +25,48 @@ import com.mtross.bitmexleaderboard.service.LeaderboardManagerImpl;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private LeaderboardManagerImpl manager;
+	@Autowired
+	private LeaderboardManagerImpl manager;
 
-    private final Clock UTC_CLOCK = Clock.systemUTC();
+	private final Clock UTC_CLOCK = Clock.systemUTC();
 
-    @GetMapping("")
-    public String getIndex(Model model) {
-        return homeStart(model);
-    }
+	@GetMapping("")
+	public String getIndex(Model model) {
+		return homeStart(model);
+	}
 
-    @GetMapping("/home")
-    public String homeStart(Model model) {
-        Leaderboard leaderboardYDA;
-        Leaderboard leaderboardTDY;
+	@GetMapping("/home")
+	public String homeStart(Model model) {
+		Leaderboard leaderboardYDA;
+		Leaderboard leaderboardTDY;
 
-        List<List<String>> differenceTable;
+		List<List<String>> differenceTable;
 
-        LocalDate today = findDateForToday();
-        LocalDate yesterday = today.minusDays(1);
+		LocalDate today = findDateForToday();
+		LocalDate yesterday = today.minusDays(1);
 
-        leaderboardYDA = manager.findLeaderboardByDate(yesterday);
-        leaderboardTDY = manager.findLeaderboardByDate(today);
+		leaderboardYDA = manager.findLeaderboardByDate(yesterday);
+		leaderboardTDY = manager.findLeaderboardByDate(today);
 
-        differenceTable = manager.buildDifferenceTable(leaderboardYDA, leaderboardTDY);
+		differenceTable = manager.buildDifferenceTable(leaderboardYDA, leaderboardTDY);
 
-        model.addAttribute("today", today);
-        model.addAttribute("yesterday", yesterday);
-        model.addAttribute("differenceTable", differenceTable);
+		model.addAttribute("today", today);
+		model.addAttribute("yesterday", yesterday);
+		model.addAttribute("differenceTable", differenceTable);
 
-        return "home";
-    }
+		return "home";
+	}
 
-    private LocalDate findDateForToday() {
-        LocalDateTime now = LocalDateTime.now(UTC_CLOCK);
+	private LocalDate findDateForToday() {
+		LocalDateTime now = LocalDateTime.now(UTC_CLOCK);
 
-        int hour = now.getHour();
-        int minute = now.getMinute();
-        if (hour > 12 || (hour == 12 && minute >= 30)) {
-            return LocalDate.now(UTC_CLOCK);
-        } else {
-            return LocalDate.now(UTC_CLOCK).minusDays(1);
-        }
-    }
+		int hour = now.getHour();
+		int minute = now.getMinute();
+		if (hour > 12 || (hour == 12 && minute >= 30)) {
+			return LocalDate.now(UTC_CLOCK);
+		} else {
+			return LocalDate.now(UTC_CLOCK).minusDays(1);
+		}
+	}
 
 }
