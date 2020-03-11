@@ -20,7 +20,7 @@ public class ScheduleRunnerImpl implements ScheduleRunner {
 	@Autowired
 	private LeaderboardManagerImpl manager;
 
-	@Scheduled(cron = "0 5 12 * * ?", zone = "UTC")
+	@Scheduled(cron = "0 0 13 * * ?", zone = "UTC")
 	public void scheduledDataCollection() throws ProtocolException, IOException {
 		Leaderboard leaderboard = manager.makeLeaderboard();
 		manager.mergeLeaderboardIntoDatabase(leaderboard);
