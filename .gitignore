@@ -40,3 +40,4 @@ Thumbs.db
 ######################
 /BitMEX-Leaderboard/nbproject/
 BitMEX-Leaderboard/src/main/webapp/WEB-INF/classes/application.properties
+*.properties
